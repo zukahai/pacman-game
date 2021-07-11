@@ -2,14 +2,14 @@ saw_Im = new Image();
 saw_Im.src = "images/saw.png";
 
 class saw{
-    constructor (game, type) {
+    constructor (game, Y, type) {
         this.game = game;
         this.type = type;
+        this.y = Y;
         this.init();
     }
 
     init() {
-        console.log(this.type);
         switch (this.type) {
             case 1:
                 this.x = game_W / 2 - 3.5 * this.game.getWidth();
@@ -21,7 +21,10 @@ class saw{
                 this.x = game_W / 2 + 3.5 * this.game.getWidth();
                 break;
         }
-        this.y = game_H / 2;
+    }
+
+    down() {
+        this.y++;
     }
 
     draw() {

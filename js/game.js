@@ -13,6 +13,7 @@ circle_Im = new Image();
 circle_Im.src = "images/circle.png";
 ball_Im = new Image();
 ball_Im.src = "images/ball.png";
+N = 5
 
 class game {
     constructor() {
@@ -27,7 +28,9 @@ class game {
         document.body.appendChild(this.canvas);
         AngleBall = Math.floor(Math.random() * 1000000) % 360;
         this.render();
-        this.arr = new ArrSaw(this);
+        this.arr = [];
+        for (let i = 0; i < N; i++)
+            this.arr[i] = new ArrSaw(this, -i * 8 * this.getWidth());
         this.loop();
 
         this.listenMouse();
@@ -35,6 +38,7 @@ class game {
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
+
         })
 
         document.addEventListener("mousemove", evt => {
@@ -71,6 +75,8 @@ class game {
             score += 10;
             AngleBall = Math.floor(Math.random() * 1000000) % 360;
         }
+        for (let i = 0; i < N; i++)
+            this.arr[i].down();
     }
 
     render() {
@@ -92,7 +98,8 @@ class game {
         this.drawPacman(angle, AnglePacman + 90 * k);
         this.drawBall();
         this.drawScore();
-        this.arr.draw();
+        for (let i = 0; i < N; i++)
+            this.arr[i].draw();
     }
 
     drawBall() {
