@@ -31,7 +31,7 @@ class game {
         this.render();
         this.arr = [];
         for (let i = 0; i < N; i++)
-            this.arr[i] = new ArrSaw(this, -i * 8 * this.getWidth());
+            this.arr[i] = new ArrSaw(this, -i * 9 * this.getWidth());
         this.loop();
 
         this.listenMouse();
@@ -83,7 +83,7 @@ class game {
         if (this.arr[0].Y > game_H) {
             for (let i = 0; i < N - 1; i++)
                 this.arr[i] = this.arr[i + 1];
-            this.arr[N - 1] = new ArrSaw(this, game_H -N * 8 * this.getWidth());
+            this.arr[N - 1] = new ArrSaw(this, game_H -N * 9 * this.getWidth());
         }
         if (this.checkDie()){
             die = true;
