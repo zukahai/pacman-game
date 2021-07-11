@@ -27,7 +27,7 @@ class game {
         document.body.appendChild(this.canvas);
         AngleBall = Math.floor(Math.random() * 1000000) % 360;
         this.render();
-        this.s = new saw(this);
+        this.arr = new ArrSaw(this);
         this.loop();
 
         this.listenMouse();
@@ -52,7 +52,7 @@ class game {
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 10);
+        setTimeout(() => this.loop(), 7);
     }
 
     update() {
@@ -92,7 +92,7 @@ class game {
         this.drawPacman(angle, AnglePacman + 90 * k);
         this.drawBall();
         this.drawScore();
-        this.s.draw();
+        this.arr.draw();
     }
 
     drawBall() {

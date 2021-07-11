@@ -9,18 +9,18 @@ class saw{
     }
 
     init() {
+        console.log(this.type);
         switch (this.type) {
             case 1:
-                this.x = game_W / 2 - 4 * this.game.getWidth();
+                this.x = game_W / 2 - 3.5 * this.game.getWidth();
                 break;
             case 2:
                 this.x = game_W / 2;
                 break;
             case 3:
-                this.x = game_W / 2 + 4 * this.game.getWidth();
+                this.x = game_W / 2 + 3.5 * this.game.getWidth();
                 break;
         }
-        this.x = game_W / 2;
         this.y = game_H / 2;
     }
 
