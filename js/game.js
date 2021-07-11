@@ -76,7 +76,7 @@ class game {
 
         if ((AnglePacman - AngleBall + 20 * k) % 360 == 0) {
             score += 10;
-            AngleBall = Math.floor(Math.random() * 1000000) % 360;
+            AngleBall = this.createBall(AngleBall);
         }
         for (let i = 0; i < N; i++)
             this.arr[i].down();
@@ -171,6 +171,14 @@ class game {
 
     toRadius(n) {
         return (n / 180) * Math.PI;
+    }
+
+    createBall(N) {
+        let N2 = 0;
+        do {
+            N2 = Math.floor(Math.random() * 1000000) % 360;
+        } while (Math.abs(N2 - N) < 90);
+        return N2;
     }
 }
 
