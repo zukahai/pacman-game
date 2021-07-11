@@ -1,6 +1,9 @@
 game_W = 0, game_H = 0;
 XXX = 0
 YYY = 0;
+let angle = 60;
+changeAngle = -5;
+let start = 0;
 circle_Im = new Image();
 circle_Im.src = "images/circle.png";
 
@@ -64,6 +67,11 @@ class game {
 
     update() {
         this.render();
+        angle += changeAngle;
+        start++;
+        if (angle >= 90 || angle <= 1){
+            changeAngle = -changeAngle;
+        }
     }
 
     render() {
@@ -75,7 +83,6 @@ class game {
                 this.canvas.width = document.documentElement.clientWidth;
             game_W = this.canvas.width;
             game_H = this.canvas.height;
-            console.log(game_W, ' ', game_H);
             XXX = game_W / 2;
             YYY = game_H / 2 + this.getWidth();
         }
@@ -83,8 +90,21 @@ class game {
 
     draw() {
         this.clearScreen();
+        this.drawBall(angle, start);
     }
 
+    drawBall(angle, start) {
+        this.context.beginPath();
+        this.context.fillStyle = 'yellow';
+        this.context.arc(game_W / 2, game_H / 2, 100, this.toRadius(start + angle / 2),this.toRadius(start + angle / 2 + 180), false);
+        this.context.fill();
+        this.context.closePath()
+
+        this.context.beginPath();
+        this.context.arc(game_W / 2, game_H / 2, 100, this.toRadius(start + angle / 2 + 180 - angle),this.toRadius(start + angle / 2 + 180 + 180 - angle), false);
+        this.context.fill();
+        this.context.closePath()
+    }
 
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
@@ -96,6 +116,10 @@ class game {
     getWidth() {
         var area = game_W * game_H;
         return Math.sqrt(area / 300);
+    }
+
+    toRadius(n) {
+        return (n / 180) * Math.PI;
     }
 }
 
