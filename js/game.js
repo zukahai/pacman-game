@@ -2,9 +2,11 @@ game_W = 0, game_H = 0;
 XXX = 0
 YYY = 0;
 xPacman = 0, yPacman = 0;
+xBall = 0, yBall = 0;
 let angle = 60;
 changeAngle = -5;
 let AnglePacman = 0;
+let AngleBall = 0;
 let k = 1;
 circle_Im = new Image();
 circle_Im.src = "images/circle.png";
@@ -22,6 +24,7 @@ class game {
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
         document.body.appendChild(this.canvas);
+        AngleBall = Math.floor(Math.random() * 1000000) % 360;
 
         this.render();
         this.loop();
@@ -79,6 +82,8 @@ class game {
         }
         xPacman = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(AnglePacman));
         yPacman = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AnglePacman));
+        xBall = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(AngleBall));
+        yBall = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AngleBall));
     }
 
     render() {
@@ -97,10 +102,15 @@ class game {
 
     draw() {
         this.clearScreen();
-        this.drawBall(angle, AnglePacman + 90 * k);
+        this.drawPacman(angle, AnglePacman + 90 * k);
+        this.drawBall();
     }
 
-    drawBall(angle, AnglePacman) {
+    drawBall() {
+        this.context.drawImage(ball_Im, xBall - this.getWidth() / 2, yBall - this.getWidth() / 2, this.getWidth(), this.getWidth());
+    }
+
+    drawPacman(angle, AnglePacman) {
         this.context.beginPath();
         this.context.fillStyle = 'yellow';
         this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2),this.toRadius(AnglePacman + angle / 2 + 180), false);
