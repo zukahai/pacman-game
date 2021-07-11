@@ -26,12 +26,11 @@ class game {
         this.context = this.canvas.getContext("2d");
         document.body.appendChild(this.canvas);
         AngleBall = Math.floor(Math.random() * 1000000) % 360;
-
         this.render();
+        this.s = new saw(this);
         this.loop();
 
         this.listenMouse();
-        this.listenTouch();
     }
 
     listenMouse() {
@@ -48,24 +47,6 @@ class game {
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             k *= -1;
         })
-    }
-
-    listenTouch() {
-        document.addEventListener("touchmove", evt => {
-            var x = evt.touches[0].pageX;
-            var y = evt.touches[0].pageY;
-        })
-
-        document.addEventListener("touchstart", evt => {
-            touchCheck = true;
-            var x = evt.touches[0].pageX;
-            var y = evt.touches[0].pageY;
-        })
-
-        document.addEventListener("touchend", evt => {    
-        })
-
-        this.context.restore();
     }
 
     loop() {
@@ -111,6 +92,7 @@ class game {
         this.drawPacman(angle, AnglePacman + 90 * k);
         this.drawBall();
         this.drawScore();
+        this.s.draw();
     }
 
     drawBall() {
@@ -140,7 +122,7 @@ class game {
         this.context.clearRect(0, 0, game_W, game_H);
         this.context.fillStyle = '#339999';
         this.context.fillRect(0 , 0, game_W, game_H);
-        this.context.drawImage(circle_Im, XXX - 4 * this.getWidth(), YYY - 4 * this.getWidth(), 8 * this.getWidth(), 8 * this.getWidth())
+        this.context.drawImage(circle_Im, XXX - 4 * this.getWidth(), YYY - 4 * this.getWidth(), 8 * this.getWidth(), 8 * this.getWidth());
     }
 
     getWidth() {
