@@ -54,7 +54,7 @@ class game {
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 1);
+        setTimeout(() => this.loop(), 30);
     }
 
     update() {
