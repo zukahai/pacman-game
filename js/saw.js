@@ -23,10 +23,6 @@ class saw{
         }
     }
 
-    down() {
-        this.y += 1;
-    }
-
     draw() {
         this.game.context.drawImage(saw_Im, this.x - 1.5 * this.game.getWidth(), this.y - 0.5 * this.game.getWidth(), 3 * this.game.getWidth(), 1 * this.game.getWidth());
     }
