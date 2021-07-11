@@ -1,4 +1,5 @@
 game_W = 0, game_H = 0;
+score = 0;
 XXX = 0
 YYY = 0;
 xPacman = 0, yPacman = 0;
@@ -84,6 +85,11 @@ class game {
         yPacman = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AnglePacman));
         xBall = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(AngleBall));
         yBall = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AngleBall));
+
+        if ((AnglePacman - AngleBall + 20 * k) % 360 == 0) {
+            score += 10;
+            AngleBall = Math.floor(Math.random() * 1000000) % 360;
+        }
     }
 
     render() {
@@ -104,10 +110,17 @@ class game {
         this.clearScreen();
         this.drawPacman(angle, AnglePacman + 90 * k);
         this.drawBall();
+        this.drawScore();
     }
 
     drawBall() {
         this.context.drawImage(ball_Im, xBall - this.getWidth() / 2, yBall - this.getWidth() / 2, this.getWidth(), this.getWidth());
+    }
+
+    drawScore() {
+        this.context.font = this.getWidth() + 'px Calibri';
+        this.context.fillStyle = "red"
+        this.context.fillText("Score: " + score, this.getWidth(), this.getWidth());
     }
 
     drawPacman(angle, AnglePacman) {
