@@ -19,8 +19,8 @@ class ArrSaw{
     }
 
     down() {
-        this.Asaw[0].down();
-        this.Asaw[1].down();
-        this.Y += 1;
+        this.Y += 5;
+        this.Asaw[0].y = this.Y;
+        this.Asaw[1].y = this.Y;
     }
 }

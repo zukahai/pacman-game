@@ -83,7 +83,7 @@ class game {
         if (this.arr[0].Y > game_H) {
             for (let i = 0; i < N - 1; i++)
                 this.arr[i] = this.arr[i + 1];
-            this.arr[N - 1] = new ArrSaw(this, game_H -(N - 1) * 11 * this.getWidth());
+            this.arr[N - 1] = new ArrSaw(this, game_H -N * 11 * this.getWidth());
         }
         if (this.checkDie()){
             die = true;
