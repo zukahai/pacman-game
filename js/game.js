@@ -1,4 +1,9 @@
 game_W = 0, game_H = 0;
+XXX = 0
+YYY = 0;
+circle_Im = new Image();
+circle_Im.src = "images/circle.png";
+
 class game {
     constructor() {
         this.canvas = null;
@@ -62,12 +67,17 @@ class game {
     }
 
     render() {
-        if (game_W / document.documentElement.clientWidth != cs || game_H != document.documentElement.clientHeight) {
-            this.canvas.width = document.documentElement.clientWidth;
+        if (game_W != document.documentElement.clientWidth || game_H != document.documentElement.clientHeight) {
             this.canvas.height = document.documentElement.clientHeight;
             
+            this.canvas.width = this.canvas.height / 1.5;
+            if (document.documentElement.clientWidth <= this.canvas.height)
+                this.canvas.width = document.documentElement.clientWidth;
             game_W = this.canvas.width;
             game_H = this.canvas.height;
+            console.log(game_W, ' ', game_H);
+            XXX = game_W / 2;
+            YYY = game_H / 2 + this.getWidth();
         }
     }
 
@@ -75,10 +85,12 @@ class game {
         this.clearScreen();
     }
 
+
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
-        this.context.fillStyle = '#000000';
-        this.context.fillRect(0 , 0, game_W, game_H); 
+        this.context.fillStyle = '#339999';
+        this.context.fillRect(0 , 0, game_W, game_H);
+        this.context.drawImage(circle_Im, XXX - 3 * this.getWidth(), YYY - 3 * this.getWidth(), 6 * this.getWidth(), 6 * this.getWidth())
     }
 
     getWidth() {
