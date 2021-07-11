@@ -4,10 +4,12 @@ YYY = 0;
 xPacman = 0, yPacman = 0;
 let angle = 60;
 changeAngle = -5;
-let start = 0;
+let AnglePacman = 0;
 let k = 1;
 circle_Im = new Image();
 circle_Im.src = "images/circle.png";
+ball_Im = new Image();
+ball_Im.src = "images/ball.png";
 
 class game {
     constructor() {
@@ -71,12 +73,12 @@ class game {
     update() {
         this.render();
         angle += changeAngle;
-        start += 1 * k;
+        AnglePacman += 1 * k;
         if (angle >= 90 || angle <= 1){
             changeAngle = -changeAngle;
         }
-        xPacman = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(start));
-        yPacman = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(start));
+        xPacman = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(AnglePacman));
+        yPacman = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AnglePacman));
     }
 
     render() {
@@ -95,18 +97,18 @@ class game {
 
     draw() {
         this.clearScreen();
-        this.drawBall(angle, start + 90 * k);
+        this.drawBall(angle, AnglePacman + 90 * k);
     }
 
-    drawBall(angle, start) {
+    drawBall(angle, AnglePacman) {
         this.context.beginPath();
         this.context.fillStyle = 'yellow';
-        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(start + angle / 2),this.toRadius(start + angle / 2 + 180), false);
+        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2),this.toRadius(AnglePacman + angle / 2 + 180), false);
         this.context.fill();
         this.context.closePath()
 
         this.context.beginPath();
-        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(start + angle / 2 + 180 - angle),this.toRadius(start + angle / 2 + 180 + 180 - angle), false);
+        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2 + 180 - angle),this.toRadius(AnglePacman + angle / 2 + 180 + 180 - angle), false);
         this.context.fill();
         this.context.closePath()
     }
