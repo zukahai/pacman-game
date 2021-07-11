@@ -24,7 +24,7 @@ class saw{
     }
 
     down() {
-        this.y++;
+        this.y += 1;
     }
 
     draw() {

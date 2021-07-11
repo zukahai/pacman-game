@@ -13,7 +13,8 @@ circle_Im = new Image();
 circle_Im.src = "images/circle.png";
 ball_Im = new Image();
 ball_Im.src = "images/ball.png";
-N = 5
+N = 5;
+die = false;
 
 class game {
     constructor() {
@@ -30,7 +31,7 @@ class game {
         this.render();
         this.arr = [];
         for (let i = 0; i < N; i++)
-            this.arr[i] = new ArrSaw(this, -i * 8 * this.getWidth());
+            this.arr[i] = new ArrSaw(this, -i * 11 * this.getWidth());
         this.loop();
 
         this.listenMouse();
@@ -60,6 +61,8 @@ class game {
     }
 
     update() {
+        if (die)
+            return;
         this.render();
         angle += changeAngle;
         AnglePacman += 1 * k;
@@ -77,6 +80,16 @@ class game {
         }
         for (let i = 0; i < N; i++)
             this.arr[i].down();
+        if (this.arr[0].Y > game_H) {
+            for (let i = 0; i < N - 1; i++)
+                this.arr[i] = this.arr[i + 1];
+            this.arr[N - 1] = new ArrSaw(this, game_H -(N - 1) * 11 * this.getWidth());
+        }
+        if (this.checkDie()){
+            die = true;
+            window.alert("You Lose!\n" + "Your Score: " + score);
+            location.reload();
+        }
     }
 
     render() {
@@ -130,6 +143,25 @@ class game {
         this.context.fillStyle = '#339999';
         this.context.fillRect(0 , 0, game_W, game_H);
         this.context.drawImage(circle_Im, XXX - 4 * this.getWidth(), YYY - 4 * this.getWidth(), 8 * this.getWidth(), 8 * this.getWidth());
+    }
+
+    checkDie() {
+        for (let i = 0; i < N; i++) {
+            for (let j = 0; j < 2; j++)
+                if (this.checkVC(this.arr[i].Asaw[j]))
+                    return true;
+        }
+        return false;
+    }
+
+    checkVC(a) {
+        if (xPacman + this.getWidth() / 1.5 < a.x - 1.3 * this.getWidth() || xPacman - this.getWidth() / 1.5 > a.x + 1.3 * this.getWidth())
+            return false;
+        if (yPacman + this.getWidth() / 1.5 <= a.y + 0.2 * this.getWidth() && yPacman + this.getWidth() / 1.5 >= a.y - 0.2 * this.getWidth())
+            return true;
+        if (yPacman - this.getWidth() / 1.5 <= a.y + 0.2 * this.getWidth() && yPacman - this.getWidth() / 1.5 >= a.y - 0.2 * this.getWidth())
+            return true;
+        return false;
     }
 
     getWidth() {
