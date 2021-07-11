@@ -7,8 +7,8 @@ class ArrSaw{
 
     init() {
         this.Asaw = [];
-        this.Asaw[0] = new saw(this.game, this.Y, 2);
-        this.Asaw[1] = new saw(this.game, this.Y, 2);
+        this.Asaw[0] = new saw(this.game, this.Y, Math.floor(Math.random() * 10000) % 3 + 1);
+        this.Asaw[1] = this.Asaw[0];
         if (Math.random() < 0.6)
             this.Asaw[1] = new saw(this.game, this.Y, Math.floor(Math.random() * 10000) % 3 + 1);
     }
@@ -19,7 +19,7 @@ class ArrSaw{
     }
 
     down() {
-        this.Y += 1.7;
+        this.Y += 1.3;
         this.Asaw[0].y = this.Y;
         this.Asaw[1].y = this.Y;
     }
