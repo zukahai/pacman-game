@@ -87,8 +87,8 @@ class game {
         }
         if (this.checkDie()){
             die = true;
-            window.alert("You Lose!\n" + "Your Score: " + score);
-            location.reload();
+            window.alert("You Loss!\n" + "Your Score: " + score);
+            // location.reload();
         }
     }
 
