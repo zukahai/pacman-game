@@ -174,11 +174,10 @@ class game {
     }
 
     createBall(N) {
-        N %= 360;
-        let N2 = 0;
-        do {
-            N2 = Math.floor(Math.random() * 1000000) % 360;
-        } while (Math.abs(N2 - N) < 90);
+        let cs = (Math.random() < 0.5) ? 1 : -1;
+        let N2 = N + cs * (90 + Math.floor(Math.random() * 1000000) % 180);
+        N2 = (N2 + 360) % 360;
+        console.log(N, ' ', N2);
         return N2;
     }
 }
