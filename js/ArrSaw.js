@@ -19,7 +19,7 @@ class ArrSaw{
     }
 
     down() {
-        this.Y += 1.3;
+        this.Y += 0.9;
         this.Asaw[0].y = this.Y;
         this.Asaw[1].y = this.Y;
     }
