@@ -32,6 +32,7 @@ class game {
 
         let currentPlayer = Player.getCurrentPlayer();
         this.player = new Player(currentPlayer);
+        console.log(this.player);
 
         this.arr = [];
         for (let i = 0; i < N; i++)
@@ -91,8 +92,13 @@ class game {
         }
         if (this.checkDie()) {
             die = true;
-            Util.postPlayerScore(this.player.getName(), 'catch-bugs', this.player.getSchool(), this.player.getPhonenumber(), score);
-            window.alert("You Loss!\n" + "Your Score: " + score);
+            Util.postPlayerScore(this.player.getName(), 'pacman', this.player.getSchool(), this.player.getPhonenumber(), score);
+            Util.findPlayerByPhoneNumberAndGameId(this.player.getPhonenumber(), 'pacman').then((respone) => {
+                Util.setItem("player-pacman", respone);
+                console.log(respone);
+                console.log(Util.getItem("player-pacman"));
+            })
+            alert("Số điểm của bạn là " + score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > score ? this.player.getScore() : score));
             // location.reload();
         }
     }
@@ -116,6 +122,7 @@ class game {
         this.drawPacman(angle, AnglePacman + 90 * k);
         this.drawBall();
         this.drawScore();
+        this.drawHighScore();
         for (let i = 0; i < N; i++)
             this.arr[i].draw();
     }
@@ -125,9 +132,17 @@ class game {
     }
 
     drawScore() {
+        this.context.textAlign = "right";
         this.context.font = this.getWidth() + 'px Calibri';
         this.context.fillStyle = "red"
-        this.context.fillText("Score: " + score, this.getWidth(), this.getWidth());
+        this.context.fillText("Score: " + score + " | " + this.player.getScore(), XXX + 6 * this.getWidth(), this.getWidth());
+    }
+
+    drawHighScore() {
+        this.context.textAlign = "left";
+        this.context.font = this.getWidth() + 'px Calibri';
+        this.context.fillStyle = "red"
+        this.context.fillText(this.player.getName(), 0, this.getWidth());
     }
 
     drawPacman(angle, AnglePacman) {

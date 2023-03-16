@@ -185,6 +185,7 @@
                     if (respone !== "") {
                         Util.setItem("player-pacman", respone);
                         console.log(Util.getItem("player-pacman"));
+                        window.location.href = "../";
                     }
                 });
                 Util.findPlayerByPhoneNumber(phonenumber).then((respone) => {
@@ -198,6 +199,7 @@
                             "phone": phonenumber,
                             "score": 0,
                         });
+                        console.log("haha");
                         window.location.href = "../";
                     } else {
                         alert(respone.message);

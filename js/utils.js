@@ -16,7 +16,7 @@ class Util {
 
     //API
     static urlAPI = 'https://54a1-103-176-110-169.ap.ngrok.io/game-vku';
-    static nameGame = 'get-eggs';
+    static nameGame = 'pacman';
 
     static async findPlayerByPhoneNumberAndGameId(phoneNumber, game) {
         const url = Util.urlAPI + "/find-by-phone-and-name_game";
