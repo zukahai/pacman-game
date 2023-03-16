@@ -177,32 +177,29 @@
                     alert("Vui lòng nhập đầy đủ thông tin");
                     return;
                 }
-                // Util.findPlayerByPhoneNumberAndGameId(phonenumber, 'pacman').then((respone) => {
-                //     if (respone === "")
-                //         window.location.href = "";
-                // });
-                Util.findPlayerByPhoneNumberAndGameId(phonenumber, 'pacman').then((respone) => {
+                let nameGame = 'pacman';
+                Util.findPlayerByPhoneNumberAndGameId(phonenumber, nameGame).then((respone) => {
                     if (respone !== "") {
-                        Util.setItem("player-pacman", respone);
-                        console.log(Util.getItem("player-pacman"));
-                        window.location.href = "../";
-                    }
-                });
-                Util.findPlayerByPhoneNumber(phonenumber).then((respone) => {
-                    console.log(respone);
-                    if (respone.check == true) {
-                        console.log("Đã tồn tại người dùng");
-                        Util.postPlayerScore(respone.data.namePlayer, 'pacman', respone.data.school, phonenumber, 0);
-                        Util.setItem("player-pacman", {
-                            "namePlayer": respone.data.namePlayer,
-                            "school": respone.data.school,
-                            "phone": phonenumber,
-                            "score": 0,
-                        });
-                        console.log("haha");
+                        Util.setItem("player-" + nameGame, respone);
+                        console.log(Util.getItem("player-" + nameGame));
                         window.location.href = "../";
                     } else {
-                        alert(respone.message);
+                        Util.findPlayerByPhoneNumber(phonenumber).then((respone) => {
+                            console.log(respone);
+                            if (respone.check == true) {
+                                console.log("Đã tồn tại người dùng");
+                                Util.postPlayerScore(respone.data.namePlayer, nameGame, respone.data.school, phonenumber, 0);
+                                Util.setItem("player-" + nameGame, {
+                                    "namePlayer": respone.data.namePlayer,
+                                    "school": respone.data.school,
+                                    "phone": phonenumber,
+                                    "score": 3,
+                                });
+                                // window.location.href = "../b";
+                            } else {
+                                alert(respone.message);
+                            }
+                        });
                     }
                 });
 

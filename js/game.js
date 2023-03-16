@@ -80,7 +80,7 @@ class game {
         yBall = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AngleBall));
 
         if ((AnglePacman - AngleBall + 20 * k) % 360 == 0) {
-            score += 10;
+            score += 1;
             AngleBall = this.createBall(AngleBall);
         }
         for (let i = 0; i < N; i++)
