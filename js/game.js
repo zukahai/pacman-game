@@ -29,6 +29,10 @@ class game {
         document.body.appendChild(this.canvas);
         AngleBall = Math.floor(Math.random() * 1000000) % 360;
         this.render();
+
+        let currentPlayer = Player.getCurrentPlayer();
+        this.player = new Player(currentPlayer);
+
         this.arr = [];
         for (let i = 0; i < N; i++)
             this.arr[i] = new ArrSaw(this, -i * 9 * this.getWidth());
@@ -66,7 +70,7 @@ class game {
         this.render();
         angle += changeAngle;
         AnglePacman += 1 * k;
-        if (angle >= 90 || angle <= 1){
+        if (angle >= 90 || angle <= 1) {
             changeAngle = -changeAngle;
         }
         xPacman = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(AnglePacman));
@@ -83,10 +87,11 @@ class game {
         if (this.arr[0].Y > game_H) {
             for (let i = 0; i < N - 1; i++)
                 this.arr[i] = this.arr[i + 1];
-            this.arr[N - 1] = new ArrSaw(this, game_H -N * 9 * this.getWidth());
+            this.arr[N - 1] = new ArrSaw(this, game_H - N * 9 * this.getWidth());
         }
-        if (this.checkDie()){
+        if (this.checkDie()) {
             die = true;
+            Util.postPlayerScore(this.player.getName(), 'catch-bugs', this.player.getSchool(), this.player.getPhonenumber(), score);
             window.alert("You Loss!\n" + "Your Score: " + score);
             // location.reload();
         }
@@ -95,7 +100,7 @@ class game {
     render() {
         if (game_W != document.documentElement.clientWidth || game_H != document.documentElement.clientHeight) {
             this.canvas.height = document.documentElement.clientHeight;
-            
+
             this.canvas.width = this.canvas.height / 1.5;
             if (document.documentElement.clientWidth <= this.canvas.height)
                 this.canvas.width = document.documentElement.clientWidth;
@@ -128,12 +133,12 @@ class game {
     drawPacman(angle, AnglePacman) {
         this.context.beginPath();
         this.context.fillStyle = 'yellow';
-        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2),this.toRadius(AnglePacman + angle / 2 + 180), false);
+        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2), this.toRadius(AnglePacman + angle / 2 + 180), false);
         this.context.fill();
         this.context.closePath()
 
         this.context.beginPath();
-        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2 + 180 - angle),this.toRadius(AnglePacman + angle / 2 + 180 + 180 - angle), false);
+        this.context.arc(xPacman, yPacman, this.getWidth() / 1.5, this.toRadius(AnglePacman + angle / 2 + 180 - angle), this.toRadius(AnglePacman + angle / 2 + 180 + 180 - angle), false);
         this.context.fill();
         this.context.closePath()
     }
@@ -141,7 +146,7 @@ class game {
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
         this.context.fillStyle = '#339999';
-        this.context.fillRect(0 , 0, game_W, game_H);
+        this.context.fillRect(0, 0, game_W, game_H);
         this.context.drawImage(circle_Im, XXX - 4 * this.getWidth(), YYY - 4 * this.getWidth(), 8 * this.getWidth(), 8 * this.getWidth());
     }
 
