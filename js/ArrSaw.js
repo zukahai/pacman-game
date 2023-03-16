@@ -1,4 +1,4 @@
-class ArrSaw{
+class ArrSaw {
     constructor(game, Y) {
         this.game = game;
         this.Y = Y;
@@ -19,7 +19,7 @@ class ArrSaw{
     }
 
     down() {
-        this.Y += 0.9;
+        this.Y += (0.9 * (1 + Util.systemNumber));
         this.Asaw[0].y = this.Y;
         this.Asaw[1].y = this.Y;
     }

@@ -37,6 +37,7 @@ class game {
         this.arr = [];
         for (let i = 0; i < N; i++)
             this.arr[i] = new ArrSaw(this, -i * 9 * this.getWidth());
+        this.buttonManager = new ButtonManager(this, 100, this.player);
         this.loop();
 
         this.listenMouse();
@@ -44,7 +45,9 @@ class game {
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
-
+            var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
+            var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            this.buttonManager.isClick(x, y);
         })
 
         document.addEventListener("mousemove", evt => {
@@ -82,6 +85,7 @@ class game {
         if ((AnglePacman - AngleBall + 20 * k) % 360 == 0) {
             score += 1;
             AngleBall = this.createBall(AngleBall);
+            Util.calSystemNumber(score);
         }
         for (let i = 0; i < N; i++)
             this.arr[i].down();
@@ -120,6 +124,7 @@ class game {
     draw() {
         this.clearScreen();
         this.drawPacman(angle, AnglePacman + 90 * k);
+        this.buttonManager.draw();
         this.drawBall();
         this.drawScore();
         this.drawHighScore();
