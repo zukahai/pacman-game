@@ -113,7 +113,7 @@ class game {
             })
 
             alert("Số điểm của bạn là " + score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > score ? this.player.getScore() : score));
-            // location.reload();
+            location.reload();
         }
     }
 
