@@ -60,6 +60,14 @@ class game {
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             k *= -1;
         })
+
+        document.addEventListener("keydown", evt => {
+            //space
+            console.log(evt.keyCode);
+            if (evt.keyCode == 32) {
+                k *= -1;
+            }
+        });
     }
 
     loop() {
