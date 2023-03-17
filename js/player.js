@@ -2,7 +2,7 @@ class Player {
     constructor(currentPlayer) {
         this.player = {
             phone: null,
-            score: 1,
+            score: 0,
             namePlayer: "Guest",
             school: "",
             isGuest: true
