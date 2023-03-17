@@ -109,11 +109,10 @@ class game {
                     Util.setItem("player-pacman", respone);
                     console.log(respone);
                     console.log(Util.getItem("player-pacman"));
+                    alert("Số điểm của bạn là " + score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > score ? this.player.getScore() : score));
+                    window.location.href = "";
                 })
             })
-
-            alert("Số điểm của bạn là " + score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > score ? this.player.getScore() : score));
-            location.reload();
         }
     }
 
