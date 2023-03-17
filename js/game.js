@@ -104,12 +104,14 @@ class game {
         }
         if (this.checkDie()) {
             die = true;
-            Util.postPlayerScore(this.player.getName(), 'pacman', this.player.getSchool(), this.player.getPhonenumber(), score);
-            Util.findPlayerByPhoneNumberAndGameId(this.player.getPhonenumber(), 'pacman').then((respone) => {
-                Util.setItem("player-pacman", respone);
-                console.log(respone);
-                console.log(Util.getItem("player-pacman"));
+            Util.postPlayerScore(this.player.getName(), 'pacman', this.player.getSchool(), this.player.getPhonenumber(), score).then(res => {
+                Util.findPlayerByPhoneNumberAndGameId(this.player.getPhonenumber(), 'pacman').then((respone) => {
+                    Util.setItem("player-pacman", respone);
+                    console.log(respone);
+                    console.log(Util.getItem("player-pacman"));
+                })
             })
+
             alert("Số điểm của bạn là " + score + "\nĐiểm cao nhất của bạn là: " + (this.player.getScore() > score ? this.player.getScore() : score));
             // location.reload();
         }
