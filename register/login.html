@@ -16,7 +16,7 @@
     <!-- partial:index.partial.html -->
 
     <body data-new-gr-c-s-check-loaded="14.1079.0" data-gr-ext-installed="">
-        <form>
+        <form action="" id="form" class="form">
             <div class="svgContainer">
                 <div>
                     <svg class="mySVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
@@ -170,6 +170,16 @@
         <script src="./script.js"></script>
 
         <script async type="text/javascript">
+            const form = document.querySelector('form');
+            form.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    console.log('enter');
+                    // Xử lý khi bấm phím "Enter" trong form
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của phím "Enter" (submit form)
+                    savePlayer();
+                }
+            });
+
             function savePlayer() {
                 var phonenumber = document.getElementById("phonenumber").value;
 
@@ -195,7 +205,7 @@
                                     "phone": phonenumber,
                                     "score": 0,
                                 });
-                                // window.location.href = "../b";
+                                window.location.href = "../";
                             } else {
                                 alert(respone.message);
                             }
