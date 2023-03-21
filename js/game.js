@@ -38,6 +38,7 @@ class game {
         for (let i = 0; i < N; i++)
             this.arr[i] = new ArrSaw(this, -i * 9 * this.getWidth());
         this.buttonManager = new ButtonManager(this, 100, this.player);
+        this.speed = 2;
         this.loop();
 
         this.listenMouse();
@@ -70,10 +71,18 @@ class game {
         });
     }
 
-    loop() {
+    // loop() {
+    //     this.update();
+    //     this.draw();
+    //     setTimeout(() => this.loop(), 7);
+    // }
+
+    loop(timestamp) {
+        Util.calculateFPS(timestamp);
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 7);
+        requestAnimationFrame((timestamp) => this.loop(timestamp));
+
     }
 
     update() {
@@ -81,7 +90,7 @@ class game {
             return;
         this.render();
         angle += changeAngle;
-        AnglePacman += 1 * k;
+        AnglePacman += this.speed * (1 + Util.systemNumber / 5) * k;
         if (angle >= 90 || angle <= 1) {
             changeAngle = -changeAngle;
         }
@@ -90,14 +99,17 @@ class game {
         xBall = XXX + 2.9 * this.getWidth() * Math.cos(this.toRadius(AngleBall));
         yBall = YYY + 2.9 * this.getWidth() * Math.sin(this.toRadius(AngleBall));
 
-        if ((AnglePacman - AngleBall + 20 * k) % 360 == 0) {
+        if ((Math.ceil(Math.abs(AnglePacman - AngleBall + 20 * k))) % 360 <= this.speed) {
             score += 1;
             AngleBall = this.createBall(AngleBall);
             Util.calSystemNumber(score);
         }
-        for (let i = 0; i < N; i++)
+        for (let i = 0; i < N; i++) {
             this.arr[i].down();
-        if (this.arr[0].Y > game_H) {
+            // console.log(this.arr[i].speed);
+        }
+
+        if (this.arr[0].Asaw[0].y > game_H) {
             for (let i = 0; i < N - 1; i++)
                 this.arr[i] = this.arr[i + 1];
             this.arr[N - 1] = new ArrSaw(this, game_H - N * 9 * this.getWidth());
@@ -181,7 +193,7 @@ class game {
 
     checkDie() {
         for (let i = 0; i < N; i++) {
-            for (let j = 0; j < 2; j++)
+            for (let j = 0; j < this.arr[i].Asaw.length; j++)
                 if (this.checkVC(this.arr[i].Asaw[j]))
                     return true;
         }
@@ -211,7 +223,6 @@ class game {
         let cs = (Math.random() < 0.5) ? 1 : -1;
         let N2 = N + cs * (90 + Math.floor(Math.random() * 1000000) % 180);
         N2 = (N2 + 360) % 360;
-        console.log(N, ' ', N2);
         return N2;
     }
 }

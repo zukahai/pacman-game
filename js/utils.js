@@ -10,7 +10,7 @@ class Util {
     //system number
     static systemNumber = 0;
     static calSystemNumber(number) {
-        Util.systemNumber = Math.sqrt(number) / 10;
+        Util.systemNumber = Math.sqrt(number) / 6;
     }
 
 
